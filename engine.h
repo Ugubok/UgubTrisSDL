@@ -25,7 +25,7 @@ typedef struct Stack_t {
   int width;
   int height;
 
-  block data[];
+  block *data;
 } Stack;
 
 /* Create figure
@@ -33,12 +33,20 @@ typedef struct Stack_t {
 Figure create_figure(int width, int height, SDL_Color color,
                      block *init_matrix);
 
-/* Create empty stack
- * */
-Stack *create_stack(int width, int height);
+/*
+** Create empty stack
+*/
+Stack create_stack(int width, int height);
 
-void link_frames(Frame *frame_a, Frame *frame_b);
-
+/*
+** Print figure data to stdout
+*/
 void dump_figure_data(Figure *figure);
+
+void stack_push(Stack *stack, Figure *figure);
+Figure *stack_pop(Stack *stack);
+
+void destroy_figure(Figure *figure);
+void destroy_stack(Stack *stack);
 
 #endif

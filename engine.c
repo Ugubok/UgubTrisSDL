@@ -120,3 +120,22 @@ void dump_figure_data(Figure *figure) {
     current_frame = current_frame->next;
   } while (current_frame != figure->current_frame);
 }
+
+Stack create_stack(int width, int height) {
+  block *data = calloc(width * height, sizeof(block));
+  Stack stack = {.width = width, .height = height, .data = data};
+  return stack;
+}
+
+void destroy_figure(Figure *figure) {
+  Frame *current_frame = figure->current_frame;
+
+  do {
+    free(figure->current_frame->matrix);
+    Frame *next_frame = current_frame->next;
+    free(current_frame);
+    current_frame = next_frame;
+  } while (current_frame != figure->current_frame);
+}
+
+void destroy_stack(Stack *stack) { free(stack->data); }
